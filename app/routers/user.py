@@ -4,10 +4,10 @@ from .. import models,schemas
 from .. import utils
 from sqlalchemy.orm import Session
 
-router=APIRouter(prefix="/user",tags=["User"])
-
-@router.post("/",status_code=status.HTTP_201_CREATED,response_model=schemas.UserOut)
-def create_user(user:schemas.UserCreate,db: Session = Depends(get_db)):
+# router=APIRouter(prefix="/user",tags=["User"])
+router=APIRouter(tags=["User"])
+@router.post("/user/",status_code=status.HTTP_201_CREATED,response_model=schemas.UserOut)
+async def create_user(user:schemas.UserCreate,db: Session = Depends(get_db)):
     print("inside create")
     h_pass=utils.hash(user.password)
     user.password=h_pass
